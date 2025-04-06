@@ -17,7 +17,7 @@ describe('UsersController (e2e)', () => {
     });
 
     it('/users (GET)', async () => {
-        const response = await request(app.getHttpServer()).get('/user');
+        const response = await request(app.getHttpServer()).get('/usere');
         expect(response.status).toBe(200);
         // Можно добавить: expect(response.body).toEqual([...])
     });
