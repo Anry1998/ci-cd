@@ -9,11 +9,11 @@ const mockUserArray = [
 ];
 
 const mockUserRepository = () => ({
-  create: jest.fn().mockImplementation(dto => dto),
-  save: jest.fn().mockImplementation(dto => Promise.resolve(dto)),
+  create: jest.fn().mockImplementation((dto) => dto),
+  save: jest.fn().mockImplementation((dto) => Promise.resolve(dto)),
   find: jest.fn().mockResolvedValue(mockUserArray),
   findOne: jest.fn(({ where: { id } }) =>
-    Promise.resolve(mockUserArray.find(user => user.id === id)),
+    Promise.resolve(mockUserArray.find((user) => user.id === id)),
   ),
   update: jest.fn().mockResolvedValue(undefined),
   delete: jest.fn().mockResolvedValue({ affected: 1 }),
@@ -60,6 +60,4 @@ describe('UserService', () => {
     expect(user).toEqual(mockUserArray[0]);
     expect(repository.findOne).toHaveBeenCalledWith({ where: { id: 1 } });
   });
-
-
 });

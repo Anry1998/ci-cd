@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
-import { BacketModule } from './backet/backet.module';
 
 @Module({
   imports: [
@@ -28,19 +27,15 @@ import { BacketModule } from './backet/backet.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [
-          __dirname + "/**/**/*.entity{.ts,.js}",
-        ],
+        entities: [__dirname + '/**/**/*.entity{.ts,.js}'],
         synchronize: configService.get<boolean>('DB_SYNCHRONIZATION'),
         logging: configService.get<boolean>('DB_LOGGING'),
-
       }),
       inject: [ConfigService],
     }),
     UserModule,
-    BacketModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

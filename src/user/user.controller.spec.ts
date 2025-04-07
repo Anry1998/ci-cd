@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'; // Импорт тестовых утилит NestJS
-import { UserController } from './user.controller';     // Импортируем контроллер
-import { UserService } from './user.service';           // Импортируем сервис
+import { UserController } from './user.controller'; // Импортируем контроллер
+import { UserService } from './user.service'; // Импортируем сервис
 import { CreateUserDto } from './dto/create-user.dto';
 
 // Фейковый массив пользователей, как будто из базы
@@ -12,14 +12,15 @@ const mockUserArray = [
 // Мок-сервис, подделка UserService с заглушками для всех методов
 const mockUserService = {
   findAll: jest.fn().mockResolvedValue(mockUserArray), // вернёт всех пользователей
-  findOne: jest.fn().mockImplementation((id: number) =>
-    Promise.resolve(mockUserArray.find(user => user.id === id)), // найдёт по id
+  findOne: jest.fn().mockImplementation(
+    (id: number) =>
+      Promise.resolve(mockUserArray.find((user) => user.id === id)), // найдёт по id
   ),
-  create: jest.fn().mockImplementation((dto: CreateUserDto) =>
-    Promise.resolve({ id: 1, ...dto }), // создаёт нового (фейково)
+  create: jest.fn().mockImplementation(
+    (dto: CreateUserDto) => Promise.resolve({ id: 1, ...dto }), // создаёт нового (фейково)
   ),
-  update: jest.fn().mockImplementation((id, dto) =>
-    Promise.resolve({ id, ...dto }), // обновляет пользователя
+  update: jest.fn().mockImplementation(
+    (id, dto) => Promise.resolve({ id, ...dto }), // обновляет пользователя
   ),
   remove: jest.fn().mockResolvedValue({ deleted: true }), // удаляет
 };
@@ -34,14 +35,14 @@ describe('UserController', () => {
       controllers: [UserController], // только контроллер
       providers: [
         {
-          provide: UserService,      // подменяем UserService на mock
+          provide: UserService, // подменяем UserService на mock
           useValue: mockUserService,
         },
       ],
     }).compile();
 
     controller = module.get<UserController>(UserController); // получаем контроллер
-    service = module.get<UserService>(UserService);           // и сервис
+    service = module.get<UserService>(UserService); // и сервис
   });
 
   // Проверка, что контроллер существует
