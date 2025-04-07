@@ -1,6 +1,8 @@
 npm run test
 npm run test:e2e
 
+npm run lint
+
 npm run start:dev
 
 docker copmpose up -d
