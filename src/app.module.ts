@@ -6,7 +6,19 @@ import { BacketModule } from './backet/backet.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: (() => {
+        switch (process.env.NODE_ENV) {
+          case 'test':
+            return '.env.test';
+          case 'production':
+            return '.env.production';
+          default:
+            return '.env';
+        }
+      })(),
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
